@@ -73,7 +73,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Caminho da planilha ───────────────────────────────────────────────────────
-CAMINHO_EXCEL = "https://juliosimoes.sharepoint.com/:x:/s/datacenterGRU.ops/IQBhuvTT9gYmQ7SyieYLots_AeO-_4xNfrkO8YDLLWBFRzM?e=fe3dd3"
+CAMINHO_EXCEL = "https://juliosimoes.sharepoint.com/:x:/r/sites/datacenterGRU.ops/Documentos%20Compartilhados/BASE%20PBI/CMS+/Tonelagem/Junho_DailyTonnageReportAllShift%20(IMPO).xlsx?d=wd3f4ba6106f64326b4b289e60ba2db3f&csf=1&web=1&e=iAFKgk&download=1"
 # ── Leitura com cache (atualiza a cada 30 minutos) ────────────────────────────
 @st.cache_data(ttl=1800)
 def obter_dados():
