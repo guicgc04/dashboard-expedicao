@@ -1,3 +1,5 @@
+import io
+import requests
 import pandas as pd
 
 
@@ -5,8 +7,23 @@ META_DIARIA = 4250
 
 
 def carregar_dados(caminho: str) -> pd.DataFrame:
-    """Lê o Excel do RPA e retorna o DataFrame tratado."""
-    df = pd.read_excel(caminho)
+    """Lê o Excel do SharePoint ou caminho local e retorna o DataFrame tratado."""
+
+    if caminho.startswith("http"):
+        # Monta URL de download direto do SharePoint
+        base = caminho.split("?")[0]
+        url_download = base + "?download=1"
+
+        headers = {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "application/octet-stream",
+        }
+
+        resp = requests.get(url_download, headers=headers, allow_redirects=True, timeout=30)
+        resp.raise_for_status()
+        df = pd.read_excel(io.BytesIO(resp.content), engine="openpyxl")
+    else:
+        df = pd.read_excel(caminho, engine="openpyxl")
 
     # Garante que a coluna Data está no formato datetime
     df['Data'] = pd.to_datetime(df['Data'], dayfirst=True)
